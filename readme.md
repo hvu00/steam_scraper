@@ -7,7 +7,4 @@ Three stages are being employed:
 * transform - Transform data into more suitable formats
 * output - Stores data to local csv files
 
-Configure the data being extracted by updating the _extraction_config settings in extraction.py.
-
-To do:
-* Move extraction config into a separate json file
+Configure the data being extracted through the config.json file.
