@@ -1,77 +1,13 @@
 from playwright.sync_api import sync_playwright
 from selectolax.parser import HTMLParser
+import json
 import logging
 
-_extraction_config = {
-    "url": "https://store.steampowered.com/specials",
-    "containers": [
-        {
-            "name": "store_sale_divs",
-            "selector": 'div[class*=salepreviewwidgets_StoreSaleWidgetContainer]',
-            "match": "all",
-            "items": [
-                {
-                    "name": "title",
-                    "selector": 'div[class*="StoreSaleWidgetTitle"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "thumbnail",
-                    "selector": 'img[class*="salepreviewwidgets_CapsuleImage"]',
-                    "match": "first",
-                    "type": "node",
-                    "attr": "src"
-                },
-                {
-                    "name": "categories",
-                    "selector": 'a[class*="salepreviewwidgets_AppTag"]',
-                    "match": "all",
-                    "type": "text"
-                },
-                {
-                    "name": "release_date",
-                    "selector": 'div[class*="salepreviewwidgets_WidgetReleaseDateAndPlatformCtn"] > div[class*="salepreviewwidgets_StoreSaleWidgetRelease"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "review_category",
-                    "selector": 'div[class*="gamehover_ReviewScoreValue"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "review_count",
-                    "selector": 'div[class*="gamehover_ReviewScoreValue"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "price_currency",
-                    "selector": 'div[class*="salepreviewwidgets_StoreOriginalPrice"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "original_price",
-                    "selector": 'div[class*="salepreviewwidgets_StoreOriginalPrice"]',
-                    "match": "first",
-                    "type": "text"
-                },
-                {
-                    "name": "discounted_price",
-                    "selector": 'div[class*="salepreviewwidgets_StoreSalePriceBox"]',
-                    "match": "first",
-                    "type": "text"
-                },
-            ]
-        }
-    ]
-}
-
 def get_config():
-    return _extraction_config
+    with open('./config.json', 'r') as conf_file:
+        config_str = conf_file.read()
+        logging.debug(config_str)
+        return json.loads(config_str)
 
 def extract_body_html(url, wait_for_selector=None):
     with sync_playwright() as p:
@@ -131,7 +67,7 @@ def extract_raw_container_data(node, config):
 
 def extract_raw_data(config):
     html_tree = HTMLParser(
-        extract_body_html(config["url"], "div[class*=salepreviewwidgets_StoreSaleWidgetContainer]")
+        extract_body_html(config["url"], config["wait_for_selector"])
         )
 
     raw_data_result = []

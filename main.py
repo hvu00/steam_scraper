@@ -16,4 +16,4 @@ if __name__ == "__main__":
     logging.debug(f"transformed_data={transformed_data}")
 
     logging.debug("saving data to disk")
-    save_to_csv(transformed_data, "save_data.csv")
+    save_to_csv(transformed_data, config["save_filepath"])

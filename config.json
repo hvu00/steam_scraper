@@ -1,0 +1,69 @@
+{
+    "url": "https://store.steampowered.com/specials",
+    "save_filepath": "save_data.csv",
+    "wait_for_selector": "div[class*=salepreviewwidgets_StoreSaleWidgetContainer]",
+    "containers": [
+        {
+            "name": "store_sale_divs",
+            "selector": "div[class*=salepreviewwidgets_StoreSaleWidgetContainer]",
+            "match": "all",
+            "items": [
+                {
+                    "name": "title",
+                    "selector": "div[class*=StoreSaleWidgetTitle]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "thumbnail",
+                    "selector": "img[class*=salepreviewwidgets_CapsuleImage]",
+                    "match": "first",
+                    "type": "node",
+                    "attr": "src"
+                },
+                {
+                    "name": "categories",
+                    "selector": "a[class*=salepreviewwidgets_AppTag]",
+                    "match": "all",
+                    "type": "text"
+                },
+                {
+                    "name": "release_date",
+                    "selector": "div[class*=salepreviewwidgets_WidgetReleaseDateAndPlatformCtn] > div[class*=salepreviewwidgets_StoreSaleWidgetRelease]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "review_category",
+                    "selector": "div[class*=gamehover_ReviewScoreValue]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "review_count",
+                    "selector": "div[class*=gamehover_ReviewScoreValue]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "price_currency",
+                    "selector": "div[class*=salepreviewwidgets_StoreOriginalPrice]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "original_price",
+                    "selector": "div[class*=salepreviewwidgets_StoreOriginalPrice]",
+                    "match": "first",
+                    "type": "text"
+                },
+                {
+                    "name": "discounted_price",
+                    "selector": "div[class*=salepreviewwidgets_StoreSalePriceBox]",
+                    "match": "first",
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
